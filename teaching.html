@@ -10,47 +10,148 @@
     <style>
         /* 基础布局 */
         body {
-            font-family: "Microsoft YaHei", Arial, sans-serif;
-            line-height: 1.6;
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.8;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            color: #333;
+            padding: 2rem;
+            color: #2c3e50;
+            background-color: #f9fafb;
         }
+
         /* 头部样式 */
         .page-header {
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding-top: 1rem;
         }
+
+        .page-header h1 {
+            color: #007bff;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
         /* 课程卡片样式 */
         .course-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .course-card h2 {
+            color: #1a5fb4;
+            font-weight: 600;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+        }
+
+        .course-card h3 {
+            color: #495057;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .course-card p {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* 讲义/资料列表样式 */
+        .resource-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .resource-list li {
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.8rem;
             background-color: #f8f9fa;
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 3px solid #007bff;
         }
-        /* 讲义/资料列表样式 */
-        .resource-list li {
-            margin-bottom: 10px;
+
+        .resource-list li:last-child {
+            margin-bottom: 0;
         }
+
+        .resource-list li .btn {
+            white-space: nowrap;
+        }
+
         /* 响应式适配 */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 1rem;
             }
+
             .course-card {
-                padding: 15px;
+                padding: 1.2rem;
             }
+
+            .resource-list li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .resource-list li .btn {
+                align-self: flex-end;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* 页脚样式优化 */
+        footer {
+            font-size: 0.9rem;
+            padding: 2rem 0;
+        }
+
+        footer hr {
+            max-width: 80%;
+            margin: 0 auto 1rem;
+            border-color: #e9ecef;
+        }
+
+        /* 按钮样式优化 */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <!-- 页面头部 -->
     <header class="page-header">
-        <h1>物理学科教学资源汇总</h1>
-        <p class="text-muted">授课教师：蒋军、刘言锐 | 更新日期：2026年3月7日</p>
+        <h1>教学资源汇总</h1>
+        <p class="text-muted">授课教师：蒋军、刘言锐等 | 更新日期：2026年3月7日</p>
     </header>
 
     <!-- 主要内容区 -->
@@ -115,6 +216,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
