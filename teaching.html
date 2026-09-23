@@ -3,213 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教学 - 热力学统计物理 | 李群李代数 | 粒子物理科普</title>
-    <!-- 引入外部样式库 -->
+    <title>教学 - 热力学统计物理 | 粒子物理科普 | 李群李代数 | 讲座</title>
+    <!-- 外部样式库 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- 自定义样式 -->
     <style>
-        /* 基础布局 */
+        :root {
+            --brand: #3a6df0;
+            --brand-dark: #1a4fd6;
+            --text-main: #2c3e50;
+            --text-muted: #6c757d;
+            --bg: #f4f6fb;
+            --card-shadow: 0 6px 20px rgba(30, 60, 120, 0.08);
+            --card-shadow-hover: 0 12px 28px rgba(30, 60, 120, 0.14);
+        }
+
+        * { scroll-behavior: smooth; }
+
         body {
-            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
-            line-height: 1.8;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            color: #2c3e50;
-            background-color: #f9fafb;
+            font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.85;
+            color: var(--text-main);
+            background: linear-gradient(180deg, #eef2fb 0%, var(--bg) 220px);
+            margin: 0;
         }
 
-        /* 头部样式 */
-        .page-header {
-            border-bottom: 3px solid #007bff;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-            padding-top: 1rem;
+        /* ---------- 头部 Hero ---------- */
+        .hero {
+            background: linear-gradient(135deg, #2b3ea0 0%, #3a6df0 55%, #6f8cff 100%);
+            color: #fff;
+            padding: 3.5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .page-header h1 {
-            color: #007bff;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -120px;
+            top: -120px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* 课程卡片样式 */
+        .hero::before {
+            content: "";
+            position: absolute;
+            left: -80px;
+            bottom: -160px;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .hero .badge-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #fff;
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 { font-weight: 700; font-size: 2.5rem; letter-spacing: 0.5px; margin-bottom: 0.6rem; }
+
+        .hero .lead { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; max-width: 720px; }
+
+        .hero-meta {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.95rem;
+        }
+
+        .hero-meta i { margin-right: 0.35rem; opacity: 0.85; }
+
+        /* ---------- 目录导航 ---------- */
+        .toc-wrap { max-width: 1100px; margin: -1.6rem auto 0; padding: 0 1rem; position: relative; z-index: 2; }
+
+        .toc {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 0.9rem 1.1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc .toc-title { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; margin-right: 0.4rem; }
+
+        .toc a {
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            transition: all 0.18s ease;
+            background: #f1f4fa;
+        }
+
+        .toc a:hover { background: var(--brand); color: #fff; }
+
+        /* ---------- 主体容器 ---------- */
+        .container-main { max-width: 1100px; margin: 2rem auto 0; padding: 0 1rem; }
+
+        /* ---------- 课程卡片 ---------- */
         .course-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            padding: 2.2rem 2.4rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e9ecef;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #eef1f7;
+            border-top: 4px solid var(--brand);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
         }
 
-        .course-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        .course-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+
+        .course-card.accent-violet { border-top-color: #7b5cd6; }
+        .course-card.accent-teal   { border-top-color: #14b8a6; }
+        .course-card.accent-orange { border-top-color: #f59e0b; }
+        .course-card.accent-slate  { border-top-color: #94a3b8; }
+
+        .card-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.4rem; }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #fff;
+            background: var(--brand);
         }
 
-        .course-card h2 {
-            color: #1a5fb4;
+        .accent-violet .card-icon { background: #7b5cd6; }
+        .accent-teal .card-icon   { background: #14b8a6; }
+        .accent-orange .card-icon { background: #f59e0b; }
+        .accent-slate .card-icon  { background: #94a3b8; }
+
+        .card-head h2 { margin: 0; font-weight: 700; font-size: 1.55rem; color: #22304a; }
+
+        .card-head .section-tag {
+            margin-left: auto;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #a0aec0;
             font-weight: 600;
-            border-bottom: 1px solid #e9ecef;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
         }
 
         .course-card h3 {
-            color: #495057;
-            font-weight: 500;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .course-card p {
-            color: #6c757d;
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        /* 讲义/资料列表样式 */
-        .resource-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .resource-list li {
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.8rem;
-            background-color: #f8f9fa;
-            border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            border-left: 3px solid #007bff;
+            gap: 0.5rem;
+            color: #33415c;
+            font-weight: 600;
+            margin: 1.7rem 0 0.7rem;
+            font-size: 1.12rem;
         }
 
-        .resource-list li:last-child {
-            margin-bottom: 0;
+        .course-card h3::before {
+            content: "";
+            width: 4px;
+            height: 18px;
+            border-radius: 2px;
+            background: var(--brand);
         }
 
-        .resource-list li .btn {
-            white-space: nowrap;
+        .accent-violet h3::before { background: #7b5cd6; }
+        .accent-teal h3::before   { background: #14b8a6; }
+        .accent-orange h3::before { background: #f59e0b; }
+        .accent-slate h3::before  { background: #94a3b8; }
+
+        .course-card p { color: var(--text-muted); text-align: justify; }
+
+        /* ---------- 资料列表 ---------- */
+        .resource-list { list-style: none; padding: 0; margin: 0; }
+
+        .resource-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.85rem 1.1rem;
+            margin-bottom: 0.7rem;
+            background: #f8fafc;
+            border: 1px solid #eef1f7;
+            border-radius: 10px;
+            transition: background 0.15s ease, border-color 0.15s ease;
         }
 
-        /* 响应式适配 */
+        .resource-list li:hover { background: #f1f6ff; border-color: #d5e2ff; }
+
+        .resource-list li:last-child { margin-bottom: 0; }
+
+        .resource-list .file-icon { color: #d64545; font-size: 1.35rem; }
+
+        .resource-list .file-name { flex: 1; color: #3a4a5f; }
+
+        .resource-list .btn { white-space: nowrap; border-radius: 8px; }
+
+        /* ---------- 占位提示 ---------- */
+        .placeholder-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            background: #fbfcfe;
+            padding: 1.4rem 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+        }
+
+        .placeholder-box i { font-size: 1.9rem; color: #94a3b8; }
+
+        /* ---------- 联系方式 ---------- */
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: #f8fafc;
+            border: 1px solid #eef1f7;
+            border-radius: 10px;
+            padding: 0.9rem 1.1rem;
+        }
+
+        .contact-item i { font-size: 1.3rem; color: var(--brand); }
+        .contact-item span { color: #3a4a5f; }
+
+        /* ---------- 页脚 ---------- */
+        footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 2rem 1rem 2.5rem; }
+        footer hr { max-width: 80%; margin: 0 auto 1rem; border-color: #dfe5ef; opacity: 1; }
+        footer i { color: #d64545; }
+
+        /* ---------- 响应式 ---------- */
         @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-
-            .course-card {
-                padding: 1.2rem;
-            }
-
-            .resource-list li {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
-            }
-
-            .resource-list li .btn {
-                align-self: flex-end;
-            }
-
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* 页脚样式优化 */
-        footer {
-            font-size: 0.9rem;
-            padding: 2rem 0;
-        }
-
-        footer hr {
-            max-width: 80%;
-            margin: 0 auto 1rem;
-            border-color: #e9ecef;
-        }
-
-        /* 按钮样式优化 */
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+            .hero { padding: 2.5rem 1.2rem 2.2rem; }
+            .hero h1 { font-size: 1.9rem; }
+            .course-card { padding: 1.5rem 1.2rem; }
+            .card-head .section-tag { display: none; }
+            .resource-list li { flex-wrap: wrap; }
+            .resource-list .file-name { flex: 1 1 100%; }
+            .resource-list .btn { margin-left: 2.25rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 页面头部 -->
-    <header class="page-header">
-        <h1>教学资源汇总</h1>
-        <p class="text-muted">授课教师：蒋军 | 更新日期：2026年3月7日</p>
+    <!-- 头部 Hero -->
+    <header class="hero">
+        <div class="hero-inner">
+            <h1>教学资源汇总</h1>
+            <p class="lead">热力学统计物理、粒子物理科普、李群李代数等课程讲义与课件，以及粒子物理与核物理系列讲座的集中发布平台。</p>
+            <div class="hero-meta">
+                <span><i class="bi bi-person-circle"></i>授课教师：蒋军</span>
+                <span><i class="bi bi-calendar3"></i>更新日期：2026年3月7日</span>
+                <span><i class="bi bi-building"></i>山东大学物理学院</span>
+            </div>
+        </div>
     </header>
 
+    <!-- 目录导航 -->
+    <nav class="toc-wrap" aria-label="页面目录">
+        <div class="toc">
+            <span class="toc-title"><i class="bi bi-list-ul"></i> 目录</span>
+            <a href="#thermo">热力学统计物理</a>
+            <a href="#pop-sci">粒子物理科普</a>
+            <a href="#lie">李群李代数</a>
+            <a href="#lectures">粒子物理与核物理讲座</a>
+            <a href="#contact">联系方式</a>
+        </div>
+    </nav>
+
     <!-- 主要内容区 -->
-    <main>
-        <!-- 热力学统计物理板块 -->
-        <section class="course-card">
-            <h2>热力学统计物理</h2>
+    <main class="container-main">
+        <!-- 1. 热力学统计物理 -->
+        <section class="course-card" id="thermo">
+            <div class="card-head">
+                <div class="card-icon"><i class="bi bi-thermometer-half"></i></div>
+                <h2>热力学统计物理</h2>
+                <span class="section-tag">Thermodynamics &amp; Statistical Physics</span>
+            </div>
             <h3>课程简介</h3>
             <p>本课程面向物理专业本科生，系统讲解热力学统计物理的基础理论、核心方法及应用，涵盖热力学基本定律、相变与临界现象、近独立粒子的统计规律、系综理论等核心内容，为后续凝聚态物理、天体物理、粒子物理等研究方向奠定理论基础。当前讲义处于草稿阶段，上课请使用课件。</p>
-            
-            <h3>课程讲义 & 课件</h3>
+
+            <h3>课程讲义 &amp; 课件</h3>
             <ul class="resource-list">
-                <li>讲义-热力学（PDF）<a href="./pdf/讲义-热力学.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>讲义-统计物理（PDF）<a href="./pdf/讲义-统计物理.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>课件-热力学1章基本规律2章热力学函数方法（PDF）<a href="./pdf/1基本规律2热力学函数方法.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>课件-热力学3章单元系相变4章翻转课堂（复相平衡化学平衡热三定律）（PDF）<a href="./pdf/3单元系相变4翻转课堂（复相平衡化学平衡热三定律）.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>课件-热力学4章翻转课堂学生预习材料（正常上课课件）（PDF）<a href="./pdf/4翻转课堂学生预习材料（正常上课课件）.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>课件-统计物理9系综理论6近独立粒子系统的最概然分布（PDF）<a href="./pdf/9系综理论与6近独立粒子系统的最概然分布.pdf" class="btn btn-sm btn-primary">下载</a></li>
-                <li>课件-统计物理7-8章三种统计分布（PDF）<a href="./pdf/7玻尔兹曼统计8玻色统计与费曼统计.pdf" class="btn btn-sm btn-primary">下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">讲义-热力学统计物理（PDF）</span><a href="./pdf/讲义-热力学统计物理.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-热力学1章基本规律2章热力学函数方法（PDF）</span><a href="./pdf/1基本规律2热力学函数方法.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-热力学3章单元系相变4章翻转课堂（复相平衡化学平衡热三定律）（PDF）</span><a href="./pdf/3单元系相变4翻转课堂（复相平衡化学平衡热三定律）.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-热力学4章翻转课堂学生预习材料（正常上课课件）（PDF）</span><a href="./pdf/4翻转课堂学生预习材料（正常上课课件）.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-统计物理9系综理论6近独立粒子系统的最概然分布（PDF）</span><a href="./pdf/9系综理论与6近独立粒子系统的最概然分布.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-统计物理7-8章三种统计分布（PDF）</span><a href="./pdf/7玻尔兹曼统计8玻色统计与费曼统计.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
             </ul>
         </section>
 
-        <!-- 李群李代数板块 -->
-        <section class="course-card">
-            <h2>李群李代数</h2>
-            <h3>课程简介</h3>
-            <p>本课程面向物理专业高年级本科生及研究生，介绍李群李代数的基本理论及其在物理学中的应用，涵盖李群的定义与基本性质、李代数的结构与表示理论、伴随表示与根系、以及在量子力学、规范场论、粒子物理等领域的具体应用。采用高崇寿著《群论及其在粒子物理学中的应用》（我们将这本老书敲成了latex供研究生教学用）。</p>
-            
-            <h3>课程讲义 & 课件</h3>
-            <ul class="resource-list">
-                <li>讲义-高崇寿著-群论及其在粒子物理学中的应用（PDF）<a href="./pdf/高崇寿-群论及其在粒子物理学中的应用.pdf" class="btn btn-sm btn-primary">下载</a></li>
-            </ul>
-        </section>
-
-        <!-- 粒子物理科普板块 -->
-        <section class="course-card">
-            <h2>粒子物理科普</h2>
+        <!-- 2. 粒子物理科普 -->
+        <section class="course-card accent-violet" id="pop-sci">
+            <div class="card-head">
+                <div class="card-icon"><i class="bi bi-stars"></i></div>
+                <h2>粒子物理科普</h2>
+                <span class="section-tag">Popular Science</span>
+            </div>
             <h3>课程简介</h3>
             <p>本课程面向全校各专业本科生，以科普形式介绍粒子物理的发展历程、核心概念与前沿进展，涵盖基本粒子分类、标准模型、高能物理实验、暗物质与暗能量、宇宙线物理等内容，旨在普及粒子物理知识，提升学生科学素养。</p>
-            
-            <h3>课程讲义 & 课件</h3>
+
+            <h3>课程讲义 &amp; 课件</h3>
             <ul class="resource-list">
-                <li>课件-课题组和粒子物理简史（PDF）<a href="./pdf/新生研讨课202510-课题组和粒子物理简史V2.pdf" class="btn btn-sm btn-primary">下载</a></li>
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">课件-课题组和粒子物理简史（PDF）</span><a href="./pdf/新生研讨课202510-课题组和粒子物理简史V2.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
             </ul>
         </section>
 
-        <!-- 联系方式板块 -->
-        <section class="course-card">
-            <h2>联系方式</h2>
-            <p>联系人：蒋军</p>
-            <p>邮箱：jiangjun87@sdu.edu.cn</p>
+        <!-- 3. 李群李代数 -->
+        <section class="course-card accent-orange" id="lie">
+            <div class="card-head">
+                <div class="card-icon"><i class="bi bi-bounding-box-circles"></i></div>
+                <h2>李群李代数</h2>
+                <span class="section-tag">Lie Groups &amp; Algebras</span>
+            </div>
+            <h3>课程简介</h3>
+            <p>本课程面向物理专业高年级本科生及研究生，介绍李群李代数的基本理论及其在物理学中的应用，涵盖李群的定义与基本性质、李代数的结构与表示理论、伴随表示与根系、以及在量子力学、规范场论、粒子物理等领域的具体应用。采用高崇寿著《群论及其在粒子物理学中的应用》作为主要教材（我们将这本老书敲成了latex供研究生教学用）。</p>
+
+            <h3>课程讲义 &amp; 课件</h3>
+            <ul class="resource-list">
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">讲义-高崇寿著-群论及其在粒子物理学中的应用（PDF）</span><a href="./pdf/高崇寿-群论及其在粒子物理学中的应用.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+            </ul>
+        </section>
+
+        <!-- 4. 粒子物理与核物理讲座 -->
+        <section class="course-card accent-teal" id="lectures">
+            <div class="card-head">
+                <div class="card-icon"><i class="bi bi-broadcast"></i></div>
+                <h2>粒子物理与核物理讲座</h2>
+                <span class="section-tag">Particle &amp; Nuclear Physics</span>
+            </div>
+            <h3>课程简介</h3>
+            <p>本课程面向物理专业研究生，介绍粒子物理与核物理的基本内容，涵盖基本粒子与相互作用、原子核的基本性质与结构、核反应与衰变、高能物理实验方法等基础知识。采用高崇寿、曾谨言著《粒子物理与核物理讲座》作为主要教材（我们将这本老书敲成了latex供研究生教学用）。</p>
+
+            <h3>课程讲义 &amp; 课件</h3>
+            <ul class="resource-list">
+                <li><i class="bi bi-file-earmark-pdf-fill file-icon"></i><span class="file-name">讲义-高崇寿曾谨言-粒子物理与核物理讲座（PDF）</span><a href="./pdf/高崇寿曾谨言-粒子物理与核物理讲座.pdf" class="btn btn-sm btn-primary"><i class="bi bi-download"></i> 下载</a></li>
+            </ul>
+        </section>
+
+        <!-- 5. 联系方式 -->
+        <section class="course-card accent-slate" id="contact">
+            <div class="card-head">
+                <div class="card-icon"><i class="bi bi-envelope-paper"></i></div>
+                <h2>联系方式</h2>
+                <span class="section-tag">Contact</span>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item"><i class="bi bi-person-fill"></i><span>联系人：蒋军</span></div>
+                <div class="contact-item"><i class="bi bi-envelope-fill"></i><span>jiangjun87@sdu.edu.cn</span></div>
+            </div>
         </section>
     </main>
 
     <!-- 页脚 -->
-    <footer class="mt-5 text-center text-muted">
+    <footer>
         <hr>
-        <p>© 2026 山东大学物理学院理论物理研究所教学团队 | 仅供教学使用</p>
+        <p>© 2026 山东大学物理学院理论物理研究所教学团队 <i class="bi bi-heart-fill"></i> 仅供教学使用</p>
     </footer>
 
     <!-- 引入JS -->
